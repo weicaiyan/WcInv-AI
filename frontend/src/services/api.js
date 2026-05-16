@@ -70,3 +70,10 @@ export function fetchCheapPortfolio() {
 export function fetchBogle() {
   return request('/api/v1/bogle')
 }
+
+export function calculateGridPlan(payload) {
+  return request('/api/v1/grid/calculate', {
+    method: 'POST',
+    body: JSON.stringify(payload)
+  })
+}

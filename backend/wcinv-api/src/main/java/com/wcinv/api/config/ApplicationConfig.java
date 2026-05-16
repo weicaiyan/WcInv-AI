@@ -7,11 +7,13 @@ import com.wcinv.application.port.outbound.MarketEntryRepository;
 import com.wcinv.application.port.outbound.TokenService;
 import com.wcinv.application.port.outbound.UserRepository;
 import com.wcinv.application.usecase.AuthenticateUseCase;
+import com.wcinv.application.usecase.CalculateGridPlanUseCase;
 import com.wcinv.application.usecase.CalculateTemperatureUseCase;
 import com.wcinv.application.usecase.EvaluateBogleUseCase;
 import com.wcinv.application.usecase.EvaluateMarketEntryUseCase;
 import com.wcinv.application.usecase.GetCheapPortfolioUseCase;
 import com.wcinv.domain.service.BogleFormulaCalculator;
+import com.wcinv.domain.service.GridStrategyCalculator;
 import com.wcinv.domain.service.TemperatureCalculator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,6 +30,11 @@ public class ApplicationConfig {
     @Bean
     public BogleFormulaCalculator bogleFormulaCalculator() {
         return new BogleFormulaCalculator();
+    }
+
+    @Bean
+    public GridStrategyCalculator gridStrategyCalculator() {
+        return new GridStrategyCalculator();
     }
 
     @Bean
@@ -52,6 +59,11 @@ public class ApplicationConfig {
     public EvaluateBogleUseCase evaluateBogleUseCase(BogleRepository bogleRepository,
                                                      BogleFormulaCalculator bogleFormulaCalculator) {
         return new EvaluateBogleUseCase(bogleRepository, bogleFormulaCalculator);
+    }
+
+    @Bean
+    public CalculateGridPlanUseCase calculateGridPlanUseCase(GridStrategyCalculator gridStrategyCalculator) {
+        return new CalculateGridPlanUseCase(gridStrategyCalculator);
     }
 
     @Bean

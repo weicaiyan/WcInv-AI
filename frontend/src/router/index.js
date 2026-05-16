@@ -36,6 +36,12 @@ const routes = [
         meta: { requiresAuth: true }
       },
       {
+        path: '/grid-strategy',
+        name: 'GridStrategy',
+        component: () => import('../views/GridStrategy.vue'),
+        meta: { requiresAuth: true }
+      },
+      {
         path: '/market-entry',
         name: 'MarketEntry',
         component: () => import('../views/MarketEntry.vue'),

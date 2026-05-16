@@ -46,6 +46,15 @@ const strategies = [
     path: '/bogle-formula'
   },
   {
+    title: '网格策略',
+    desc: '低估指数的中短期波段计算器，自动生成买卖档位。',
+    status: '已接入',
+    statusClass: 'ok',
+    icon: '🕸️',
+    tone: 'cyan',
+    path: '/grid-strategy'
+  },
+  {
     title: '市场入场',
     desc: '判断现在能不能启动股票/指数策略。',
     status: '已接入',
@@ -125,6 +134,7 @@ h1 { margin-top: 4px; font-size: 30px; line-height: 1.1; letter-spacing: -0.04em
 .icon.green { background: rgba(34, 197, 94, 0.14); }
 .icon.blue { background: rgba(59, 130, 246, 0.14); }
 .icon.purple { background: rgba(168, 85, 247, 0.14); }
+.icon.cyan { background: rgba(6, 182, 212, 0.14); }
 .icon.gray { background: rgba(100, 116, 139, 0.16); }
 .content { min-width: 0; flex: 1; }
 .title-row { display: flex; align-items: center; gap: 8px; justify-content: space-between; }
