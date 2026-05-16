@@ -1,0 +1,56 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+*.log
+logs/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+*.local
+.hermes/
+scripts/lixinger_token.txt
+scripts/lixinger_state.json
+scripts/*state*.json
+scripts/*token*.txt
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Java / Maven
+**/target/
+.mvn/timing.properties
+
+# Node / frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/coverage/
+
+# Local exploratory/reverse-engineering scripts and captured artifacts
+scripts/test_*.py
+scripts/explore_*.py
+scripts/capture_*.py
+scripts/screenshot_*.py
+scripts/get_lixinger_token.py
+scripts/search_github_lixinger.py
+scripts/scrape_*.py
+scripts/lixinger_*.txt
+scripts/lixinger_*.png
+scripts/*.png
+scripts/*.jpg
+scripts/*.jpeg
+
+# Temporary files
+*.tmp
+*.bak
