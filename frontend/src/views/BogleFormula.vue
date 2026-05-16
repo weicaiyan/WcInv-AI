@@ -1,12 +1,13 @@
 <template>
-  <header class="topbar">
-    <a class="back-btn" @click="$router.back()">← 返回</a>
-    <div>
-      <p class="eyebrow">博格公式</p>
-      <h1>消费医药值不值得买</h1>
-    </div>
-    <span class="date-tag" v-if="bogle">{{ bogle.trade_date }}</span>
-  </header>
+  <van-nav-bar
+    title="博格公式"
+    left-arrow
+    @click-left="$router.back()"
+  >
+    <template #right>
+      <span class="date-tag" v-if="bogle">{{ bogle.trade_date }}</span>
+    </template>
+  </van-nav-bar>
 
   <section v-if="loading" class="state-card">加载中...</section>
   <section v-else-if="error" class="state-card error">{{ error }}</section>

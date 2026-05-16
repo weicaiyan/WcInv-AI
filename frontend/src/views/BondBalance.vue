@@ -1,11 +1,9 @@
 <template>
-<header class="topbar">
-    <a class="back-btn" @click="$router.back()">← 返回</a>
-    <div>
-      <p class="eyebrow">策略03</p>
-      <h1>股债平衡</h1>
-    </div>
-  </header>
+  <van-nav-bar
+    title="股债平衡"
+    left-arrow
+    @click-left="$router.back()"
+  />
 
   <section class="glass-card hero-card">
     <p class="hero-label">懒人结论</p>

@@ -1,11 +1,9 @@
 <template>
-<header class="topbar">
-    <a class="back-btn" @click="$router.back()">← 返回</a>
-    <div>
-      <p class="eyebrow">策略09</p>
-      <h1>风险排雷清单</h1>
-    </div>
-  </header>
+  <van-nav-bar
+    title="风险排雷"
+    left-arrow
+    @click-left="$router.back()"
+  />
 
   <section class="glass-card hero-card">
     <p class="hero-label">懒人结论</p>

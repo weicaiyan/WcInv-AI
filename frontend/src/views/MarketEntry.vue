@@ -1,12 +1,13 @@
 <template>
-  <header class="topbar">
-    <a class="back-btn" @click="$router.back()">← 返回</a>
-    <div>
-      <p class="eyebrow">市场入场</p>
-      <h1>现在能入场吗</h1>
-    </div>
-    <span class="date-tag" v-if="decision">{{ decision.trade_date }}</span>
-  </header>
+  <van-nav-bar
+    title="市场入场"
+    left-arrow
+    @click-left="$router.back()"
+  >
+    <template #right>
+      <span class="date-tag" v-if="decision">{{ decision.trade_date }}</span>
+    </template>
+  </van-nav-bar>
 
   <van-loading v-if="loading" class="loading" color="#f59e0b">加载中...</van-loading>
 
