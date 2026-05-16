@@ -13,7 +13,7 @@
 
 ## 常用启动
 
-1. 准备 MySQL 数据库 `wcinv`，并按 `.env.example` 设置本地环境变量。
+1. 准备 MySQL 数据库 `wcinv`，并按 `.env.example` 设置本地环境变量；也可以复制成不提交的 `.env.local`，`start-backend.bat` 会自动读取。
 2. 理杏仁数据脚本需要设置 `LIXINGER_TOKEN`，或在本地创建不提交的 `scripts/lixinger_token.txt`。
 3. 双击 `start-backend.bat` 启动后端。
 4. 双击 `start-frontend.bat` 启动前端。

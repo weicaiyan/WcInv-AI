@@ -5,6 +5,11 @@ set "PROJECT_DIR=C:\Users\17890\code\WcInv"
 set "BACKEND_DIR=%PROJECT_DIR%\backend\wcinv-api"
 set "PORT=8080"
 
+if exist "%PROJECT_DIR%\.env.local" (
+    echo [WcInv] Loading local environment from .env.local...
+    for /f "usebackq tokens=1,* delims==" %%i in (`findstr /v "^#" "%PROJECT_DIR%\.env.local"`) do set "%%i=%%j"
+)
+
 echo [WcInv] Restarting backend on port %PORT%...
 
 for /f "tokens=5" %%a in ('netstat -ano ^| findstr ":%PORT%" ^| findstr "LISTENING"') do (
