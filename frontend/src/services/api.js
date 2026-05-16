@@ -84,3 +84,10 @@ export function evaluateCompanyRisk(payload) {
     body: JSON.stringify(payload)
   })
 }
+
+export function calculateBondBalance(payload) {
+  return request('/api/v1/bond-balance/calculate', {
+    method: 'POST',
+    body: JSON.stringify(payload)
+  })
+}

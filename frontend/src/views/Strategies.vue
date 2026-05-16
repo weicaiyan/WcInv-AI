@@ -91,6 +91,15 @@ const strategies = [
     path: '/cheap-portfolio'
   },
   {
+    title: '股债平衡',
+    desc: '按中证全指温度调整股票和债券的配比，每年再平衡。',
+    status: '已接入',
+    statusClass: 'ok',
+    icon: '⚖️',
+    tone: 'teal',
+    path: '/bond-balance'
+  },
+  {
     title: '历史温度走势',
     desc: '看市场温度是升温还是降温。',
     status: '待开发',
@@ -145,6 +154,7 @@ h1 { margin-top: 4px; font-size: 30px; line-height: 1.1; letter-spacing: -0.04em
 .icon.purple { background: rgba(168, 85, 247, 0.14); }
 .icon.cyan { background: rgba(6, 182, 212, 0.14); }
 .icon.red { background: rgba(239, 68, 68, 0.14); }
+.icon.teal { background: rgba(20, 184, 166, 0.14); }
 .icon.gray { background: rgba(100, 116, 139, 0.16); }
 .content { min-width: 0; flex: 1; }
 .title-row { display: flex; align-items: center; gap: 8px; justify-content: space-between; }

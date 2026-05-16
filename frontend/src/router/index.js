@@ -60,6 +60,12 @@ const routes = [
         meta: { requiresAuth: true }
       },
       {
+        path: '/bond-balance',
+        name: 'BondBalance',
+        component: () => import('../views/BondBalance.vue'),
+        meta: { requiresAuth: true }
+      },
+      {
         path: '/mine',
         name: 'Mine',
         component: () => import('../views/Mine.vue'),

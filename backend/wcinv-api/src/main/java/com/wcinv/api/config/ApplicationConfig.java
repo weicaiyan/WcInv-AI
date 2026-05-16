@@ -7,6 +7,7 @@ import com.wcinv.application.port.outbound.MarketEntryRepository;
 import com.wcinv.application.port.outbound.TokenService;
 import com.wcinv.application.port.outbound.UserRepository;
 import com.wcinv.application.usecase.AuthenticateUseCase;
+import com.wcinv.application.usecase.CalculateBondBalanceUseCase;
 import com.wcinv.application.usecase.CalculateGridPlanUseCase;
 import com.wcinv.application.usecase.CalculateTemperatureUseCase;
 import com.wcinv.application.usecase.EvaluateBogleUseCase;
@@ -14,6 +15,7 @@ import com.wcinv.application.usecase.EvaluateCompanyRiskUseCase;
 import com.wcinv.application.usecase.EvaluateMarketEntryUseCase;
 import com.wcinv.application.usecase.GetCheapPortfolioUseCase;
 import com.wcinv.domain.service.BogleFormulaCalculator;
+import com.wcinv.domain.service.BondBalanceCalculator;
 import com.wcinv.domain.service.CompanyRiskEvaluator;
 import com.wcinv.domain.service.GridStrategyCalculator;
 import com.wcinv.domain.service.TemperatureCalculator;
@@ -45,6 +47,11 @@ public class ApplicationConfig {
     }
 
     @Bean
+    public BondBalanceCalculator bondBalanceCalculator() {
+        return new BondBalanceCalculator();
+    }
+
+    @Bean
     public AuthenticateUseCase authenticateUseCase(UserRepository userRepository,
                                                    PasswordEncoder passwordEncoder,
                                                    TokenService tokenService) {
@@ -71,6 +78,11 @@ public class ApplicationConfig {
     @Bean
     public CalculateGridPlanUseCase calculateGridPlanUseCase(GridStrategyCalculator gridStrategyCalculator) {
         return new CalculateGridPlanUseCase(gridStrategyCalculator);
+    }
+
+    @Bean
+    public CalculateBondBalanceUseCase calculateBondBalanceUseCase(BondBalanceCalculator bondBalanceCalculator) {
+        return new CalculateBondBalanceUseCase(bondBalanceCalculator);
     }
 
     @Bean
