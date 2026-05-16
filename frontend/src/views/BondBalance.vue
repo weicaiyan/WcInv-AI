@@ -7,43 +7,56 @@
 
   <section class="glass-card hero-card">
     <p class="hero-label">懒人结论</p>
-    <h2>{{ result?.lazy_conclusion || '输入中证全指温度，查看股债配比。' }}</h2>
-    <p class="muted">温度 = (PE分位点 + PB分位点) / 2，每10°一档，每年再平衡一次。</p>
+    <h2>{{ result?.lazy_conclusion || '输入中证全指温度，查看股债配比' }}</h2>
+    <p class="muted">温度 = (PE分位点 + PB分位点) / 2，每 10° 一档，每年再平衡一次</p>
   </section>
 
   <section class="glass-card form-card">
-    <label class="temp-input">
-      <span>中证全指温度</span>
-      <div class="temp-row">
-        <input v-model.number="form.temperature" type="number" step="0.1" placeholder="如 38.1" />
-        <span class="unit">°</span>
-      </div>
-    </label>
+    <div class="field-grid">
+      <label>
+        <span>中证全指温度</span>
+        <div class="input-with-unit">
+          <input v-model.number="form.temperature" type="number" step="0.1" placeholder="如 38.1" />
+          <span class="unit">°</span>
+        </div>
+      </label>
+    </div>
     <van-button block round color="#f59e0b" :loading="loading" @click="submit">计算配比</van-button>
     <p v-if="error" class="error">{{ error }}</p>
   </section>
 
-  <section v-if="result" class="result-area">
-    <div class="ratio-bars">
-      <div class="ratio-bar stock-bar" :style="{ width: result.stock_ratio + '%' }">
-        <span>股票 {{ result.stock_ratio }}%</span>
-      </div>
-      <div class="ratio-bar bond-bar" :style="{ width: result.bond_ratio + '%' }">
-        <span>债券 {{ result.bond_ratio }}%</span>
-      </div>
+  <section v-if="result" class="summary-grid">
+    <div class="glass-card metric-card">
+      <span>股票类</span>
+      <strong class="stock">{{ result.stock_ratio }}%</strong>
     </div>
+    <div class="glass-card metric-card">
+      <span>债券类</span>
+      <strong class="bond">{{ result.bond_ratio }}%</strong>
+    </div>
+  </section>
 
-    <div class="glass-card tip-card">
-      <p>💡 股票类内部：50%宽基 + 30%策略/境外 + 20%行业（可调）</p>
-      <p>💡 债券类：选2只纯债基金，平均分配</p>
-      <p>💡 每年按新温度查表再平衡一次</p>
+  <section v-if="result" class="ratio-section">
+    <div class="ratio-track">
+      <div class="ratio-fill stock-fill" :style="{ width: result.stock_ratio + '%' }" />
+      <div class="ratio-fill bond-fill" :style="{ width: result.bond_ratio + '%' }" />
     </div>
+    <div class="ratio-labels">
+      <span>股票 {{ result.stock_ratio }}%</span>
+      <span>债券 {{ result.bond_ratio }}%</span>
+    </div>
+  </section>
+
+  <section v-if="result" class="glass-card tip-card">
+    <p>💡 股票类内部：50% 宽基 + 30% 策略/境外 + 20% 行业（可调）</p>
+    <p>💡 债券类：选 2 只纯债基金，平均分配</p>
+    <p>💡 每年按新温度查表再平衡一次</p>
   </section>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import { calculateBondBalance } from '@/services/api'
+import { calculateBondBalance } from '../services/api'
 
 const form = ref({ temperature: null })
 const result = ref(null)
@@ -58,8 +71,7 @@ async function submit() {
   }
   loading.value = true
   try {
-    const res = await calculateBondBalance({ temperature: form.value.temperature })
-    result.value = res.data
+    result.value = await calculateBondBalance({ temperature: form.value.temperature })
   } catch (e) {
     error.value = e.message || '请求失败'
     result.value = null
@@ -70,23 +82,31 @@ async function submit() {
 </script>
 
 <style scoped>
-.back-btn { display: inline-block; margin-right: 12px; color: var(--wc-primary-2, #f59e0b); font-size: 14px; text-decoration: none; cursor: pointer; user-select: none; }
-.temp-input {
-  display: block;
+.hero-label { color: var(--wc-primary-2); font-size: 12px; font-weight: 800; letter-spacing: 0.16em; }
+.hero-card h2 { margin-top: 6px; font-size: 19px; line-height: 1.4; }
+.hero-card .muted { margin-top: 8px; font-size: 13px; }
+
+.field-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
   margin-bottom: 20px;
 }
-.temp-input > span {
-  display: block;
-  margin-bottom: 8px;
-  color: var(--muted, #888);
-  font-size: 14px;
+.field-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
-.temp-row {
+.field-grid label > span {
+  font-size: 14px;
+  color: var(--wc-muted);
+}
+.input-with-unit {
   display: flex;
   align-items: center;
   gap: 8px;
 }
-.temp-row input {
+.input-with-unit input {
   flex: 1;
   padding: 12px 16px;
   background: rgba(255,255,255,0.06);
@@ -97,33 +117,72 @@ async function submit() {
   font-weight: 600;
   outline: none;
 }
-.temp-row .unit {
+.input-with-unit .unit {
   font-size: 22px;
-  color: var(--muted, #888);
+  color: var(--wc-muted);
 }
-.ratio-bars {
-  margin-bottom: 16px;
+
+.error { margin-top: 10px; font-size: 13px; color: var(--wc-danger); }
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 14px;
 }
-.ratio-bar {
-  padding: 14px 16px;
-  border-radius: 10px;
+.metric-card {
+  padding: 16px;
+  text-align: center;
+}
+.metric-card span {
+  display: block;
+  font-size: 13px;
+  color: var(--wc-muted);
   margin-bottom: 8px;
-  font-weight: 600;
-  font-size: 15px;
+}
+.metric-card strong {
+  font-size: 28px;
+  font-weight: 800;
+}
+.metric-card .stock { color: var(--wc-primary); }
+.metric-card .bond { color: #3b82f6; }
+
+.ratio-section {
+  margin-bottom: 14px;
+}
+.ratio-track {
+  height: 44px;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  background: rgba(255,255,255,0.04);
+}
+.ratio-fill {
+  height: 100%;
+  display: flex;
+  align-items: center;
   transition: width 0.5s ease;
 }
-.stock-bar {
+.stock-fill {
   background: linear-gradient(135deg, #f59e0b, #d97706);
-  color: #111;
+  border-radius: 12px 0 0 12px;
 }
-.bond-bar {
+.bond-fill {
   background: linear-gradient(135deg, #3b82f6, #2563eb);
-  color: #fff;
+  border-radius: 0 12px 12px 0;
 }
+.ratio-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--wc-muted);
+}
+
 .tip-card p {
   margin: 8px 0;
   font-size: 13px;
-  color: var(--muted, #888);
+  color: var(--wc-muted);
   line-height: 1.6;
 }
 </style>
