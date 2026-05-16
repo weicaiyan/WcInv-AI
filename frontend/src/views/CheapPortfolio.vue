@@ -1,5 +1,6 @@
 <template>
   <header class="topbar">
+    <a class="back-btn" @click="$router.back()">← 返回</a>
     <div>
       <p class="eyebrow">便宜组合</p>
       <h1>现在买哪些便宜股</h1>
@@ -103,6 +104,7 @@ onMounted(loadPortfolio)
 </script>
 
 <style scoped>
+.back-btn { display: inline-block; margin-right: 12px; color: var(--wc-primary-2, #f59e0b); font-size: 14px; text-decoration: none; cursor: pointer; user-select: none; }
 .topbar {
   display: flex;
   align-items: flex-start;

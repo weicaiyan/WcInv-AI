@@ -1,5 +1,6 @@
 <template>
-  <header class="topbar">
+<header class="topbar">
+    <a class="back-btn" @click="$router.back()">← 返回</a>
     <div>
       <p class="eyebrow">策略09</p>
       <h1>风险排雷清单</h1>
@@ -116,6 +117,7 @@ function submit() {
 </script>
 
 <style scoped>
+.back-btn { display: inline-block; margin-right: 12px; color: var(--wc-primary-2, #f59e0b); font-size: 14px; text-decoration: none; cursor: pointer; user-select: none; }
 .topbar { margin-bottom: 18px; }
 .eyebrow { color: var(--wc-primary-2); font-size: 12px; font-weight: 800; letter-spacing: 0.14em; }
 h1 { margin-top: 4px; font-size: 30px; line-height: 1.1; letter-spacing: -0.04em; }
