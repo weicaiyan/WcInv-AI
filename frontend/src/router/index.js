@@ -42,6 +42,12 @@ const routes = [
         meta: { requiresAuth: true }
       },
       {
+        path: '/company-risk-filter',
+        name: 'CompanyRiskFilter',
+        component: () => import('../views/CompanyRiskFilter.vue'),
+        meta: { requiresAuth: true }
+      },
+      {
         path: '/market-entry',
         name: 'MarketEntry',
         component: () => import('../views/MarketEntry.vue'),
