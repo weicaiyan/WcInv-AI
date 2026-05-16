@@ -36,6 +36,13 @@ async function request(path, options = {}) {
   }
 
   if (!response.ok || body?.error) {
+    if (response.status === 403) {
+      clearToken()
+      window.location.hash = '#/login'
+      const err = new Error('登录已过期，请重新登录')
+      err.status = 403
+      throw err
+    }
     const message = body?.error?.message || `请求失败（${response.status}）`
     const err = new Error(message)
     err.status = response.status
