@@ -41,6 +41,19 @@ textarea {
   background: var(--wc-bg);
 }
 
+.van-nav-bar {
+  --van-nav-bar-background: var(--wc-bg);
+  --van-nav-bar-text-color: var(--wc-text);
+  --van-nav-bar-icon-color: var(--wc-text);
+  background: var(--wc-bg) !important;
+}
+.van-nav-bar__title {
+  color: var(--wc-text) !important;
+}
+.van-nav-bar .van-icon {
+  color: var(--wc-text) !important;
+}
+
 .page-shell {
   min-height: 100dvh;
   background:
