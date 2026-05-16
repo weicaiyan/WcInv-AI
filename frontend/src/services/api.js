@@ -77,3 +77,10 @@ export function calculateGridPlan(payload) {
     body: JSON.stringify(payload)
   })
 }
+
+export function evaluateCompanyRisk(payload) {
+  return request('/api/v1/company-risk/evaluate', {
+    method: 'POST',
+    body: JSON.stringify(payload)
+  })
+}
