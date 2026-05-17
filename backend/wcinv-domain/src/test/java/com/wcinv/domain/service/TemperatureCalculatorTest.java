@@ -40,44 +40,38 @@ class TemperatureCalculatorTest {
     // ── getAction: 7 温度区间 ──
 
     @ParameterizedTest
-    @ValueSource(doubles = {0.0, 5.0, 9.99})
-    void getAction_0to10_shouldReturnHeavyBuy(double temperature) {
+    @ValueSource(doubles = {0.0, 7.0, 14.99})
+    void getAction_0to15_shouldReturnHeavyBuy(double temperature) {
         assertEquals(InvestmentAction.HEAVY_BUY, calculator.getAction(temperature));
     }
 
     @ParameterizedTest
-    @ValueSource(doubles = {10.0, 15.0, 19.99})
-    void getAction_10to20_shouldReturnNormalBuy(double temperature) {
+    @ValueSource(doubles = {15.0, 22.0, 29.99})
+    void getAction_15to30_shouldReturnNormalBuy(double temperature) {
         assertEquals(InvestmentAction.NORMAL_BUY, calculator.getAction(temperature));
     }
 
     @ParameterizedTest
-    @ValueSource(doubles = {20.0, 22.5, 24.99})
-    void getAction_20to25_shouldReturnReducedBuy(double temperature) {
-        assertEquals(InvestmentAction.REDUCED_BUY, calculator.getAction(temperature));
-    }
-
-    @ParameterizedTest
-    @ValueSource(doubles = {25.0, 27.5, 29.99})
-    void getAction_25to30_shouldReturnLightBuy(double temperature) {
+    @ValueSource(doubles = {30.0, 37.0, 44.99})
+    void getAction_30to45_shouldReturnLightBuy(double temperature) {
         assertEquals(InvestmentAction.LIGHT_BUY, calculator.getAction(temperature));
     }
 
     @ParameterizedTest
-    @ValueSource(doubles = {30.0, 35.0, 39.99})
-    void getAction_30to40_shouldReturnHold(double temperature) {
+    @ValueSource(doubles = {45.0, 52.0, 59.99})
+    void getAction_45to60_shouldReturnHold(double temperature) {
         assertEquals(InvestmentAction.HOLD, calculator.getAction(temperature));
     }
 
     @ParameterizedTest
-    @ValueSource(doubles = {40.0, 45.0, 49.99})
-    void getAction_40to50_shouldReturnSellHalf(double temperature) {
+    @ValueSource(doubles = {60.0, 67.0, 74.99})
+    void getAction_60to75_shouldReturnSellHalf(double temperature) {
         assertEquals(InvestmentAction.SELL_HALF, calculator.getAction(temperature));
     }
 
     @ParameterizedTest
-    @ValueSource(doubles = {50.0, 60.0, 100.0})
-    void getAction_50plus_shouldReturnClear(double temperature) {
+    @ValueSource(doubles = {75.0, 85.0, 100.0})
+    void getAction_75plus_shouldReturnClear(double temperature) {
         assertEquals(InvestmentAction.CLEAR, calculator.getAction(temperature));
     }
 
@@ -89,33 +83,28 @@ class TemperatureCalculatorTest {
     }
 
     @Test
-    void boundary_10_shouldBeNormalBuy() {
-        assertEquals(InvestmentAction.NORMAL_BUY, calculator.getAction(10.0));
+    void boundary_15_shouldBeNormalBuy() {
+        assertEquals(InvestmentAction.NORMAL_BUY, calculator.getAction(15.0));
     }
 
     @Test
-    void boundary_20_shouldBeReducedBuy() {
-        assertEquals(InvestmentAction.REDUCED_BUY, calculator.getAction(20.0));
+    void boundary_30_shouldBeLightBuy() {
+        assertEquals(InvestmentAction.LIGHT_BUY, calculator.getAction(30.0));
     }
 
     @Test
-    void boundary_25_shouldBeLightBuy() {
-        assertEquals(InvestmentAction.LIGHT_BUY, calculator.getAction(25.0));
+    void boundary_45_shouldBeHold() {
+        assertEquals(InvestmentAction.HOLD, calculator.getAction(45.0));
     }
 
     @Test
-    void boundary_30_shouldBeHold() {
-        assertEquals(InvestmentAction.HOLD, calculator.getAction(30.0));
+    void boundary_60_shouldBeSellHalf() {
+        assertEquals(InvestmentAction.SELL_HALF, calculator.getAction(60.0));
     }
 
     @Test
-    void boundary_40_shouldBeSellHalf() {
-        assertEquals(InvestmentAction.SELL_HALF, calculator.getAction(40.0));
-    }
-
-    @Test
-    void boundary_50_shouldBeClear() {
-        assertEquals(InvestmentAction.CLEAR, calculator.getAction(50.0));
+    void boundary_75_shouldBeClear() {
+        assertEquals(InvestmentAction.CLEAR, calculator.getAction(75.0));
     }
 
     // ── getRatio ──
@@ -123,25 +112,22 @@ class TemperatureCalculatorTest {
     @ParameterizedTest
     @CsvSource({
             "0.0,  1.0",
-            "5.0,  1.0",
-            "9.99, 1.0",
-            "10.0, 0.8",
+            "7.0,  1.0",
+            "14.99,1.0",
             "15.0, 0.8",
-            "19.99,0.8",
-            "20.0, 0.6",
-            "22.0, 0.6",
-            "24.99,0.6",
-            "25.0, 0.5",
-            "27.0, 0.5",
-            "29.99,0.5",
-            "30.0, 0.0",
-            "35.0, 0.0",
-            "39.99,0.0",
-            "40.0,-0.5",
-            "45.0,-0.5",
-            "49.99,-0.5",
-            "50.0,-1.0",
-            "70.0,-1.0",
+            "22.0, 0.8",
+            "29.99,0.8",
+            "30.0, 0.5",
+            "37.0, 0.5",
+            "44.99,0.5",
+            "45.0, 0.0",
+            "52.0, 0.0",
+            "59.99,0.0",
+            "60.0,-0.5",
+            "67.0,-0.5",
+            "74.99,-0.5",
+            "75.0,-1.0",
+            "85.0,-1.0",
     })
     void getRatio_shouldReturnCorrectValue(double temperature, double expectedRatio) {
         assertEquals(expectedRatio, calculator.getRatio(temperature), 0.001);
@@ -162,7 +148,7 @@ class TemperatureCalculatorTest {
     // ── 一致性: getAction 和 getRatio 同一区间对应一致 ──
 
     @ParameterizedTest
-    @ValueSource(doubles = {0.0, 5.0, 15.0, 22.0, 27.0, 35.0, 45.0, 60.0})
+    @ValueSource(doubles = {0.0, 7.0, 22.0, 37.0, 52.0, 67.0, 85.0})
     void getActionAndGetRatio_shouldBeConsistent(double temperature) {
         InvestmentAction action = calculator.getAction(temperature);
         double ratio = calculator.getRatio(temperature);

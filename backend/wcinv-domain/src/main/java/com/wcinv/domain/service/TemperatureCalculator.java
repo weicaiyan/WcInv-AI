@@ -24,17 +24,15 @@ public class TemperatureCalculator {
         if (temperature < 0) {
             throw new IllegalArgumentException("温度不能为负数: " + temperature);
         }
-        if (temperature < 10) {
+        if (temperature < 15) {
             return InvestmentAction.HEAVY_BUY;
-        } else if (temperature < 20) {
-            return InvestmentAction.NORMAL_BUY;
-        } else if (temperature < 25) {
-            return InvestmentAction.REDUCED_BUY;
         } else if (temperature < 30) {
+            return InvestmentAction.NORMAL_BUY;
+        } else if (temperature < 45) {
             return InvestmentAction.LIGHT_BUY;
-        } else if (temperature < 40) {
+        } else if (temperature < 60) {
             return InvestmentAction.HOLD;
-        } else if (temperature < 50) {
+        } else if (temperature < 75) {
             return InvestmentAction.SELL_HALF;
         } else {
             return InvestmentAction.CLEAR;
@@ -45,17 +43,15 @@ public class TemperatureCalculator {
         if (temperature < 0) {
             throw new IllegalArgumentException("温度不能为负数: " + temperature);
         }
-        if (temperature < 10) {
+        if (temperature < 15) {
             return 1.0;
-        } else if (temperature < 20) {
-            return 0.8;
-        } else if (temperature < 25) {
-            return 0.6;
         } else if (temperature < 30) {
+            return 0.8;
+        } else if (temperature < 45) {
             return 0.5;
-        } else if (temperature < 40) {
+        } else if (temperature < 60) {
             return 0.0;
-        } else if (temperature < 50) {
+        } else if (temperature < 75) {
             return -0.5;
         } else {
             return -1.0;
