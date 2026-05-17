@@ -46,14 +46,6 @@
 
     <section class="summary-grid">
       <div class="glass-card metric-card">
-        <span>PE 温度</span>
-        <strong style="color: #60a5fa">{{ last?.pe_temp ?? '--' }}°</strong>
-      </div>
-      <div class="glass-card metric-card">
-        <span>PB 温度</span>
-        <strong style="color: #c084fc">{{ last?.pb_temp ?? '--' }}°</strong>
-      </div>
-      <div class="glass-card metric-card">
         <span>趋势</span>
         <strong>{{ trendText }}</strong>
       </div>
@@ -174,8 +166,6 @@ const chartOption = computed(() => {
   const h = history.value?.history
   if (!h?.length) return {}
   const dates = h.map(i => i.date?.slice(0, 7))
-  const peData = h.map(i => Number(i.pe_temp))
-  const pbData = h.map(i => Number(i.pb_temp))
   const tempData = h.map(i => Number(i.temperature))
 
   return {
@@ -187,14 +177,12 @@ const chartOption = computed(() => {
       textStyle: { color: '#f8fafc', fontSize: 12 },
       formatter(params) {
         if (!params?.length) return ''
-        let html = `<div style="font-weight:600;margin-bottom:6px">${params[0].axisValue}</div>`
-        params.forEach(p => {
-          html += `<div style="display:flex;align-items:center;gap:6px;margin-top:4px">
+        const p = params[0]
+        return `<div style="font-weight:600;margin-bottom:6px">${p.axisValue}</div>
+          <div style="display:flex;align-items:center;gap:6px">
             <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${p.color}"></span>
-            ${p.seriesName}: ${Number(p.value).toFixed(2)}°
+            综合温度: ${Number(p.value).toFixed(2)}°
           </div>`
-        })
-        return html
       }
     },
     grid: { top: 10, right: 24, bottom: 10, left: 44 },
@@ -216,40 +204,6 @@ const chartOption = computed(() => {
       axisLabel: { color: '#94a3b8', fontSize: 10, formatter: '{value}°' }
     },
     series: [
-      {
-        name: 'PE温度',
-        type: 'line',
-        data: peData,
-        smooth: true,
-        symbol: 'none',
-        lineStyle: { color: '#60a5fa', width: 1.5 },
-        areaStyle: {
-          color: {
-            type: 'linear', x: 0, y: 0, x2: 0, y2: 1,
-            colorStops: [
-              { offset: 0, color: 'rgba(96,165,250,0.08)' },
-              { offset: 1, color: 'rgba(96,165,250,0.01)' }
-            ]
-          }
-        }
-      },
-      {
-        name: 'PB温度',
-        type: 'line',
-        data: pbData,
-        smooth: true,
-        symbol: 'none',
-        lineStyle: { color: '#c084fc', width: 1.5 },
-        areaStyle: {
-          color: {
-            type: 'linear', x: 0, y: 0, x2: 0, y2: 1,
-            colorStops: [
-              { offset: 0, color: 'rgba(192,132,252,0.08)' },
-              { offset: 1, color: 'rgba(192,132,252,0.01)' }
-            ]
-          }
-        }
-      },
       {
         name: '综合温度',
         type: 'line',
