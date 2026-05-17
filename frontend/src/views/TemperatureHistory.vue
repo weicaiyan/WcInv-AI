@@ -300,16 +300,17 @@ onMounted(() => load(indexCode.value, tabs[0].days))
 
 .temp-hero { margin-bottom: 10px; }
 .temp-circle {
-  width: 100px; height: 100px;
+  min-width: 96px; min-height: 96px;
+  padding: 12px 10px;
   border-radius: 50%;
   border: 3px solid;
-  display: flex;
+  display: inline-flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   margin: 0 auto 14px auto;
 }
-.temp-value { font-size: 32px; font-weight: 800; line-height: 1.1; }
+.temp-value { font-size: 28px; font-weight: 800; line-height: 1.1; white-space: nowrap; }
 .temp-label { font-size: 12px; color: var(--wc-muted); margin-top: 2px; }
 
 .temp-meter { padding: 0 4px; }
