@@ -14,6 +14,7 @@ import com.wcinv.application.usecase.EvaluateBogleUseCase;
 import com.wcinv.application.usecase.EvaluateCompanyRiskUseCase;
 import com.wcinv.application.usecase.EvaluateMarketEntryUseCase;
 import com.wcinv.application.usecase.GetCheapPortfolioUseCase;
+import com.wcinv.application.usecase.TemperatureHistoryUseCase;
 import com.wcinv.domain.service.BogleFormulaCalculator;
 import com.wcinv.domain.service.BondBalanceCalculator;
 import com.wcinv.domain.service.CompanyRiskEvaluator;
@@ -94,5 +95,10 @@ public class ApplicationConfig {
     public GetCheapPortfolioUseCase getCheapPortfolioUseCase(CheapPortfolioRepository cheapPortfolioRepository,
                                                              EvaluateMarketEntryUseCase evaluateMarketEntryUseCase) {
         return new GetCheapPortfolioUseCase(cheapPortfolioRepository, evaluateMarketEntryUseCase);
+    }
+
+    @Bean
+    public TemperatureHistoryUseCase temperatureHistoryUseCase(IndexValuationRepository indexValuationRepository) {
+        return new TemperatureHistoryUseCase(indexValuationRepository);
     }
 }

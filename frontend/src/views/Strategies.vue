@@ -104,11 +104,11 @@ const strategies = [
   {
     title: '历史温度走势',
     desc: '看市场温度是升温还是降温。',
-    status: '待开发',
-    statusClass: 'todo',
-    icon: 'orders-o',
-    tone: 'gray',
-    path: '/strategies'
+    status: '已接入',
+    statusClass: 'ok',
+    icon: 'chart-trending-o',
+    tone: 'blue',
+    path: '/temperature-history'
   },
   {
     title: '持仓再平衡',

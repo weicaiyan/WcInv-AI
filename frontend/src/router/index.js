@@ -66,6 +66,12 @@ const routes = [
         meta: { requiresAuth: true }
       },
       {
+        path: '/temperature-history',
+        name: 'TemperatureHistory',
+        component: () => import('../views/TemperatureHistory.vue'),
+        meta: { requiresAuth: true }
+      },
+      {
         path: '/mine',
         name: 'Mine',
         component: () => import('../views/Mine.vue'),

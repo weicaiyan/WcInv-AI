@@ -92,6 +92,10 @@ export function evaluateCompanyRisk(payload) {
   })
 }
 
+export function fetchTemperatureHistory(indexCode, days = 3650) {
+  return request(`/api/v1/indices/${indexCode}/temperature-history?days=${days}`)
+}
+
 export function calculateBondBalance(payload) {
   return request('/api/v1/bond-balance/calculate', {
     method: 'POST',
