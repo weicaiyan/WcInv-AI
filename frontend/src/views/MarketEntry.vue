@@ -61,6 +61,11 @@
     <div class="warnings" v-if="decision.warnings && decision.warnings.length">
       <p v-for="w in decision.warnings" :key="w">⚠️ {{ w }}</p>
     </div>
+
+    <section class="glass-card trend-card" v-if="trendChartOption.series">
+      <h3>温度走势（3年）</h3>
+      <v-chart :option="trendChartOption" style="height: 240px" autoresize />
+    </section>
   </section>
 
   <van-button class="refresh" block round plain hairline :loading="loading" @click="load">
@@ -71,13 +76,24 @@
 <script setup>
 import { computed, onMounted, ref } from 'vue'
 import { Button as VanButton, Loading as VanLoading } from 'vant'
-import { fetchMarketEntry } from '../services/api'
+import VChart from 'vue-echarts'
+import 'echarts'
+import { fetchMarketEntry, fetchTemperatureHistory } from '../services/api'
 
 const loading = ref(false)
 const error = ref('')
 const decision = ref(null)
 
-onMounted(load)
+// 温度趋势图
+const temp300 = ref(null)
+const temp500 = ref(null)
+const tempDays = 1095 // 3年
+const INDICES = [
+  { code: '000300', name: '沪深300', color: '#f59e0b', ref: temp300 },
+  { code: '000905', name: '中证500', color: '#22d3ee', ref: temp500 }
+]
+
+onMounted(() => { load(); loadTrends() })
 
 async function load() {
   loading.value = true
@@ -89,6 +105,17 @@ async function load() {
   } finally {
     loading.value = false
   }
+}
+
+async function loadTrends() {
+  try {
+    const [d300, d500] = await Promise.all([
+      fetchTemperatureHistory('000300', tempDays),
+      fetchTemperatureHistory('000905', tempDays)
+    ])
+    temp300.value = d300
+    temp500.value = d500
+  } catch (_) { /* silent */ }
 }
 
 const levelClass = computed(() => {
@@ -116,6 +143,60 @@ function metricClass(v, threshold) {
   return v <= threshold ? 'pass' : 'fail'
 }
 function fmt(v) { return v != null ? v.toFixed(1) : '--' }
+
+const trendChartOption = computed(() => {
+  const d300 = temp300.value?.history
+  const d500 = temp500.value?.history
+  if (!d300?.length && !d500?.length) return {}
+
+  const allDates = [...new Set([
+    ...(d300 || []).map(i => i.date?.slice(0, 7)),
+    ...(d500 || []).map(i => i.date?.slice(0, 7))
+  ])].sort()
+
+  return {
+    backgroundColor: 'transparent',
+    tooltip: {
+      trigger: 'axis',
+      backgroundColor: 'rgba(15, 23, 42, 0.96)',
+      borderColor: 'rgba(148, 163, 184, 0.18)',
+      textStyle: { color: '#f8fafc', fontSize: 12 }
+    },
+    grid: { top: 10, right: 24, bottom: 10, left: 44 },
+    xAxis: {
+      type: 'category',
+      data: allDates,
+      axisLine: { lineStyle: { color: '#334155' } },
+      axisLabel: { color: '#94a3b8', fontSize: 10, interval: Math.max(Math.floor(allDates.length / 6), 1) }
+    },
+    yAxis: {
+      type: 'value', min: 0, max: 100,
+      splitLine: { lineStyle: { color: '#1e293b' } },
+      axisLabel: { color: '#94a3b8', fontSize: 10, formatter: '{value}°' }
+    },
+    series: INDICES.map(idx => {
+      const data = idx.ref.value?.history || []
+      const dateMap = Object.fromEntries(data.map(i => [i.date?.slice(0, 7), Number(i.temperature)]))
+      return {
+        name: idx.name,
+        type: 'line',
+        data: allDates.map(d => dateMap[d] ?? null),
+        smooth: true,
+        symbol: 'none',
+        lineStyle: { color: idx.color, width: 2 },
+        areaStyle: {
+          color: {
+            type: 'linear', x: 0, y: 0, x2: 0, y2: 1,
+            colorStops: [
+              { offset: 0, color: idx.color + '22' },
+              { offset: 1, color: idx.color + '05' }
+            ]
+          }
+        }
+      }
+    })
+  }
+})
 </script>
 
 <style scoped>
@@ -170,6 +251,9 @@ function fmt(v) { return v != null ? v.toFixed(1) : '--' }
   background: rgba(234,179,8,0.1); color: #facc15;
   font-size: 13px; line-height: 1.5;
 }
+
+.trend-card { padding: 18px; margin-bottom: 16px; }
+.trend-card h3 { font-size: 16px; margin-bottom: 12px; }
 
 .refresh {
   height: 46px; margin-top: 8px;
