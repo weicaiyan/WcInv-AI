@@ -90,7 +90,7 @@ const temp500 = ref(null)
 const tempDays = 1095 // 3年
 const INDICES = [
   { code: '000300', name: '沪深300', color: '#f59e0b', ref: temp300 },
-  { code: '000905', name: '中证500', color: '#22d3ee', ref: temp500 }
+  { code: '000905', name: '中证500', color: '#3b82f6', ref: temp500 }
 ]
 
 onMounted(() => { load(); loadTrends() })
