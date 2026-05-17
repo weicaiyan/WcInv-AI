@@ -156,10 +156,12 @@ const meterGradient = computed(() => {
 })
 
 function tempColor(t) {
+  if (t <= 15) return '#22c55e'
   if (t <= 30) return '#4ade80'
-  if (t <= 70) return '#fbbf24'
-  if (t <= 85) return '#f97316'
-  return '#ef4444'
+  if (t <= 45) return '#fbbf24'
+  if (t <= 60) return '#f97316'
+  if (t <= 75) return '#ef4444'
+  return '#dc2626'
 }
 
 const chartOption = computed(() => {

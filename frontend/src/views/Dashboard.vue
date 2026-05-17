@@ -124,10 +124,12 @@ function clamp(value) {
 
 function temperatureColor(value) {
   const t = Number(value || 0)
-  if (t < 30) return '#22c55e'
-  if (t < 60) return '#eab308'
-  if (t < 80) return '#f97316'
-  return '#ef4444'
+  if (t < 15) return '#22c55e'
+  if (t < 30) return '#4ade80'
+  if (t < 45) return '#eab308'
+  if (t < 60) return '#f97316'
+  if (t < 75) return '#ef4444'
+  return '#dc2626'
 }
 
 function actionText(action) {
