@@ -157,11 +157,11 @@ const trendChartOption = computed(() => {
   return {
     backgroundColor: 'transparent',
     legend: {
-      data: INDICES.map(i => i.name),
+      data: INDICES.map(i => ({ name: i.name, icon: 'circle' })),
       top: 0,
       textStyle: { color: '#94a3b8', fontSize: 11 },
-      itemWidth: 12,
-      itemHeight: 8
+      itemWidth: 10,
+      itemHeight: 10
     },
     tooltip: {
       trigger: 'axis',
