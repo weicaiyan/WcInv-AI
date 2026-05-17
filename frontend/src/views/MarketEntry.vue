@@ -156,6 +156,13 @@ const trendChartOption = computed(() => {
 
   return {
     backgroundColor: 'transparent',
+    legend: {
+      data: INDICES.map(i => i.name),
+      bottom: 0,
+      textStyle: { color: '#94a3b8', fontSize: 11 },
+      itemWidth: 12,
+      itemHeight: 8
+    },
     tooltip: {
       trigger: 'axis',
       backgroundColor: 'rgba(15, 23, 42, 0.96)',
