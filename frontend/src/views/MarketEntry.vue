@@ -158,7 +158,7 @@ const trendChartOption = computed(() => {
     backgroundColor: 'transparent',
     legend: {
       data: INDICES.map(i => i.name),
-      bottom: 0,
+      top: 0,
       textStyle: { color: '#94a3b8', fontSize: 11 },
       itemWidth: 12,
       itemHeight: 8
@@ -169,7 +169,7 @@ const trendChartOption = computed(() => {
       borderColor: 'rgba(148, 163, 184, 0.18)',
       textStyle: { color: '#f8fafc', fontSize: 12 }
     },
-    grid: { top: 10, right: 24, bottom: 10, left: 44 },
+    grid: { top: 24, right: 24, bottom: 10, left: 44 },
     xAxis: {
       type: 'category',
       data: allDates,
