@@ -190,6 +190,7 @@ const trendChartOption = computed(() => {
         data: allDates.map(d => dateMap[d] ?? null),
         smooth: true,
         symbol: 'none',
+        itemStyle: { color: idx.color },
         lineStyle: { color: idx.color, width: 2 },
         areaStyle: {
           color: {
