@@ -59,12 +59,12 @@
       <h2>温度说明</h2>
       <p>综合温度 = (PE温度 + PB温度) / 2，按月取最后交易日。</p>
       <div class="temp-legend">
-        <span class="dot" style="background:#22c55e"></span>0~15° 重仓买入
-        <span class="dot" style="background:#4ade80"></span>15~30° 正常买入
-        <span class="dot" style="background:#fbbf24"></span>30~45° 轻仓买入
-        <span class="dot" style="background:#f97316"></span>45~60° 持有不动
-        <span class="dot" style="background:#ef4444"></span>60~75° 卖出半仓
-        <span class="dot" style="background:#dc2626"></span>75°+ 全部卖出
+        <div class="legend-row"><span class="dot" style="background:#22c55e"></span>0~15° 重仓买入</div>
+        <div class="legend-row"><span class="dot" style="background:#4ade80"></span>15~30° 正常买入</div>
+        <div class="legend-row"><span class="dot" style="background:#fbbf24"></span>30~45° 轻仓买入</div>
+        <div class="legend-row"><span class="dot" style="background:#f97316"></span>45~60° 持有不动</div>
+        <div class="legend-row"><span class="dot" style="background:#ef4444"></span>60~75° 卖出半仓</div>
+        <div class="legend-row"><span class="dot" style="background:#dc2626"></span>75°+ 全部卖出</div>
       </div>
     </section>
   </template>
@@ -306,17 +306,21 @@ onMounted(() => load(indexCode.value, tabs[0].days))
 .note-card p { margin-top: 8px; color: var(--wc-muted); font-size: 13px; line-height: 1.55; }
 .temp-legend {
   margin-top: 10px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
   font-size: 12px;
   color: var(--wc-muted);
 }
+.legend-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 0;
+  border-bottom: 1px solid rgba(148,163,184,0.08);
+}
+.legend-row:last-child { border-bottom: none; }
 .temp-legend .dot {
-  display: inline-block;
+  flex-shrink: 0;
   width: 8px; height: 8px;
   border-radius: 50%;
-  margin-right: 2px;
 }
 
 .state-card { padding: 22px 18px; border-radius: 24px; color: var(--wc-muted); background: rgba(15,23,42,0.72); border: 1px solid var(--wc-border); }
