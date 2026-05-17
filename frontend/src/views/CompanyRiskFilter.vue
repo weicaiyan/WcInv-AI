@@ -115,10 +115,6 @@ function submit() {
 </script>
 
 <style scoped>
-.back-btn { display: inline-block; margin-right: 12px; color: var(--wc-primary-2, #f59e0b); font-size: 14px; text-decoration: none; cursor: pointer; user-select: none; }
-.topbar { margin-bottom: 18px; }
-.eyebrow { color: var(--wc-primary-2); font-size: 12px; font-weight: 800; letter-spacing: 0.14em; }
-h1 { margin-top: 4px; font-size: 30px; line-height: 1.1; letter-spacing: -0.04em; }
 .hero-card, .form-card, .tags-card, .note-card { padding: 18px; margin-bottom: 14px; }
 .hero-label { color: var(--wc-primary-2); font-size: 13px; font-weight: 800; }
 .hero-card h2 { margin-top: 8px; font-size: 21px; line-height: 1.35; letter-spacing: -0.03em; }
@@ -148,8 +144,8 @@ input[type="text"] {
   outline: none;
 }
 .checks { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
-.check-item { display: flex; align-items: center; gap: 7px; color: var(--wc-muted); font-size: 13px; }
-.check-item input { accent-color: var(--wc-primary-2); }
+.check-item { display: flex; align-items: center; gap: 7px; color: var(--wc-muted); font-size: 13px; min-height: 44px; padding: 4px 0; cursor: pointer; }
+.check-item input { accent-color: var(--wc-primary-2); width: 20px; height: 20px; flex: 0 0 auto; }
 .error { margin-top: 10px; color: #f87171; font-size: 13px; }
 .tags-card h2, .note-card h2 { font-size: 18px; margin-bottom: 10px; }
 .tags { display: flex; flex-wrap: wrap; gap: 8px; }

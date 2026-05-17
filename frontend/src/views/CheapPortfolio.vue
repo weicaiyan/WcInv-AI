@@ -105,25 +105,6 @@ onMounted(loadPortfolio)
 </script>
 
 <style scoped>
-.back-btn { display: inline-block; margin-right: 12px; color: var(--wc-primary-2, #f59e0b); font-size: 14px; text-decoration: none; cursor: pointer; user-select: none; }
-.topbar {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 18px;
-}
-.eyebrow {
-  margin: 0 0 4px;
-  font-size: 12px;
-  letter-spacing: 0.18em;
-  color: var(--wc-muted);
-}
-h1 {
-  margin: 0;
-  font-size: 28px;
-  line-height: 1.1;
-}
 .date-tag {
   padding: 7px 10px;
   border-radius: 999px;

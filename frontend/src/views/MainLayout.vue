@@ -27,12 +27,12 @@ const route = useRoute()
 const active = ref('home')
 
 watch(() => route.path, (path) => {
-  if (path.startsWith('/strategies') || path.startsWith('/market-entry') || path.startsWith('/cheap-portfolio')) {
-    active.value = 'strategies'
+  if (path.startsWith('/dashboard')) {
+    active.value = 'home'
   } else if (path.startsWith('/mine')) {
     active.value = 'mine'
   } else {
-    active.value = 'home'
+    active.value = 'strategies'
   }
 }, { immediate: true })
 </script>

@@ -86,6 +86,8 @@ async function submit() {
 .hero-card h2 { margin-top: 6px; font-size: 19px; line-height: 1.4; }
 .hero-card .muted { margin-top: 8px; font-size: 13px; }
 
+.form-card { padding: 18px; }
+
 .field-grid {
   display: flex;
   flex-direction: column;

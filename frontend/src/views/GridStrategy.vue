@@ -132,10 +132,6 @@ onMounted(submit)
 </script>
 
 <style scoped>
-.back-btn { display: inline-block; margin-right: 12px; color: var(--wc-primary-2, #f59e0b); font-size: 14px; text-decoration: none; cursor: pointer; user-select: none; }
-.topbar { margin-bottom: 18px; }
-.eyebrow { color: var(--wc-primary-2); font-size: 12px; font-weight: 800; letter-spacing: 0.14em; }
-h1 { margin-top: 4px; font-size: 30px; line-height: 1.1; letter-spacing: -0.04em; }
 .hero-card, .form-card, .table-card, .note-card { padding: 18px; margin-bottom: 14px; }
 .hero-label { color: var(--wc-primary-2); font-size: 13px; font-weight: 800; }
 .hero-card h2 { margin-top: 8px; font-size: 21px; line-height: 1.35; letter-spacing: -0.03em; }

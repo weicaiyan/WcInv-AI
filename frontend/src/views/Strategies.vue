@@ -19,7 +19,9 @@
       class="glass-card strategy-card"
       :to="item.path"
     >
-      <div class="icon" :class="item.tone">{{ item.icon }}</div>
+      <div class="icon" :class="item.tone">
+        <van-icon :name="item.icon" size="22" />
+      </div>
       <div class="content">
         <div class="title-row">
           <h3>{{ item.title }}</h3>
@@ -41,7 +43,7 @@ const strategies = [
     desc: '估算消费、医药行业指数的预期年化收益率。',
     status: '已接入',
     statusClass: 'ok',
-    icon: '🧮',
+    icon: 'gem-o',
     tone: 'purple',
     path: '/bogle-formula'
   },
@@ -50,7 +52,7 @@ const strategies = [
     desc: '低估指数的中短期波段计算器，自动生成买卖档位。',
     status: '已接入',
     statusClass: 'ok',
-    icon: '🕸️',
+    icon: 'points',
     tone: 'cyan',
     path: '/grid-strategy'
   },
@@ -59,7 +61,7 @@ const strategies = [
     desc: '买股票前先做风险排查：ST/丑闻/经营恶化/不熟不做。',
     status: '已接入',
     statusClass: 'ok',
-    icon: '⚠️',
+    icon: 'warning-o',
     tone: 'red',
     path: '/company-risk-filter'
   },
@@ -68,7 +70,7 @@ const strategies = [
     desc: '判断现在能不能启动股票/指数策略。',
     status: '已接入',
     statusClass: 'ok',
-    icon: '🚦',
+    icon: 'flag-o',
     tone: 'amber',
     path: '/market-entry'
   },
@@ -77,7 +79,7 @@ const strategies = [
     desc: '看沪深300、中证500、上证50、创业板50冷热。',
     status: '首页展示',
     statusClass: 'ok',
-    icon: '🌡️',
+    icon: 'fire-o',
     tone: 'green',
     path: '/dashboard'
   },
@@ -86,7 +88,7 @@ const strategies = [
     desc: '从A股里筛便宜、高股息、低PB分位股票。',
     status: '已接入',
     statusClass: 'ok',
-    icon: '🧺',
+    icon: 'cart-o',
     tone: 'blue',
     path: '/cheap-portfolio'
   },
@@ -95,7 +97,7 @@ const strategies = [
     desc: '按中证全指温度调整股票和债券的配比，每年再平衡。',
     status: '已接入',
     statusClass: 'ok',
-    icon: '⚖️',
+    icon: 'balance-o',
     tone: 'teal',
     path: '/bond-balance'
   },
@@ -104,7 +106,7 @@ const strategies = [
     desc: '看市场温度是升温还是降温。',
     status: '待开发',
     statusClass: 'todo',
-    icon: '📈',
+    icon: 'orders-o',
     tone: 'gray',
     path: '/strategies'
   },
@@ -113,7 +115,7 @@ const strategies = [
     desc: '未来根据你的持仓给调仓建议。',
     status: '待开发',
     statusClass: 'todo',
-    icon: '⚖️',
+    icon: 'exchange',
     tone: 'gray',
     path: '/strategies'
   }

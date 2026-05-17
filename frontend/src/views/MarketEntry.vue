@@ -9,7 +9,8 @@
     </template>
   </van-nav-bar>
 
-  <van-loading v-if="loading" class="loading" color="#f59e0b">加载中...</van-loading>
+  <section v-if="error" class="state-card error">{{ error }}</section>
+  <van-loading v-else-if="loading" class="loading" color="#f59e0b">加载中...</van-loading>
 
   <section v-else-if="decision" class="decision-area">
     <div class="glass-card hero-card" :class="levelClass">
@@ -73,14 +74,18 @@ import { Button as VanButton, Loading as VanLoading } from 'vant'
 import { fetchMarketEntry } from '../services/api'
 
 const loading = ref(false)
+const error = ref('')
 const decision = ref(null)
 
 onMounted(load)
 
 async function load() {
   loading.value = true
+  error.value = ''
   try {
     decision.value = await fetchMarketEntry()
+  } catch (e) {
+    error.value = e.message || '加载失败'
   } finally {
     loading.value = false
   }
@@ -114,16 +119,12 @@ function fmt(v) { return v != null ? v.toFixed(1) : '--' }
 </script>
 
 <style scoped>
-.back-btn { display: inline-block; margin-right: 12px; color: var(--wc-primary-2, #f59e0b); font-size: 14px; text-decoration: none; cursor: pointer; user-select: none; }
-.topbar {
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 14px; margin-bottom: 18px;
-}
-.eyebrow { color: var(--wc-primary-2); font-size: 12px; font-weight: 800; letter-spacing: 0.14em; }
-h1 { margin-top: 4px; font-size: 30px; line-height: 1.1; letter-spacing: -0.04em; }
 .date-tag { color: var(--wc-muted); font-size: 12px; }
 
 .loading { padding: 42px 0; }
+
+.state-card { padding: 22px 18px; border-radius: 24px; color: var(--wc-muted); background: rgba(15,23,42,0.72); border: 1px solid var(--wc-border); }
+.state-card.error { color: #fca5a5; border-color: rgba(239,68,68,0.2); }
 
 .hero-card { padding: 20px; margin-bottom: 16px; border-left: 4px solid; }
 .hero-label { font-size: 13px; font-weight: 800; }

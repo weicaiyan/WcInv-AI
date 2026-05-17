@@ -15,6 +15,8 @@
 
   <van-loading v-if="loading" class="loading" color="#f59e0b">加载中...</van-loading>
 
+  <section v-else-if="error" class="state-card error">{{ error }}</section>
+
   <van-empty
     v-else-if="!temperatures.length"
     class="empty"
@@ -74,10 +76,11 @@
 
 <script setup>
 import { computed, onMounted, ref } from 'vue'
-import { showToast, Button as VanButton, Empty as VanEmpty, Loading as VanLoading } from 'vant'
+import { Button as VanButton, Empty as VanEmpty, Loading as VanLoading } from 'vant'
 import { fetchTemperatures } from '../services/api'
 
 const loading = ref(false)
+const error = ref('')
 const temperatures = ref([])
 
 const firstDate = computed(() => {
@@ -99,10 +102,11 @@ onMounted(loadTemperatures)
 
 async function loadTemperatures() {
   loading.value = true
+  error.value = ''
   try {
     temperatures.value = await fetchTemperatures()
-  } catch (error) {
-    showToast(error.message || '数据加载失败')
+  } catch (err) {
+    error.value = err.message || '数据加载失败'
   } finally {
     loading.value = false
   }
@@ -110,7 +114,7 @@ async function loadTemperatures() {
 
 function fmt(value) {
   const n = Number(value || 0)
-  return Number.isInteger(n) ? String(n) : n.toFixed(1)
+  return Number.isInteger(n) ? String(n) : n.toFixed(2)
 }
 
 function clamp(value) {
@@ -162,6 +166,9 @@ h1 { margin-top: 4px; font-size: 30px; line-height: 1.1; letter-spacing: -0.04em
 .hero-card .muted { margin-top: 10px; font-size: 13px; }
 
 .loading, .empty { padding: 42px 0; }
+
+.state-card { padding: 22px 18px; border-radius: 24px; color: var(--wc-muted); background: rgba(15,23,42,0.72); border: 1px solid var(--wc-border); }
+.state-card.error { color: #fca5a5; border-color: rgba(239,68,68,0.2); }
 
 .temperature-list { display: grid; gap: 14px; }
 
