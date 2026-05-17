@@ -21,9 +21,15 @@ if errorlevel 1 (
 
 echo [WcInv] Starting frontend...
 echo [WcInv] Open: http://localhost:5173
+echo [WcInv] Public: https://wcinv.top
 echo [WcInv] Press Ctrl+C to stop.
+
+rem Start Cloudflare Tunnel
+start "WcInv Tunnel" /min C:\Users\17890\MyData\AI\Hermes\cloudflared.exe tunnel run wcinv
+
 npm run dev -- --host 0.0.0.0
 
 echo.
 echo [WcInv] Frontend stopped.
+taskkill /FI "WINDOWTITLE eq WcInv Tunnel" /F >nul 2>nul
 pause
