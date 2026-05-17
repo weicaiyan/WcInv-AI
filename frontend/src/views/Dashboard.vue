@@ -32,10 +32,11 @@
       :key="item.index_code"
       class="glass-card temp-card"
       :style="{ '--temp-color': temperatureColor(item.temperature) }"
+      @click="$router.push(`/temperature-history?index_code=${item.index_code}`)"
     >
       <div class="card-head">
         <div>
-          <h3>{{ item.index_name }}</h3>
+          <h3>{{ item.index_name }} <van-icon name="arrow" class="arrow-icon" /></h3>
           <p class="code">{{ item.index_code }}</p>
         </div>
         <div class="temp-badge">
@@ -76,7 +77,7 @@
 
 <script setup>
 import { computed, onMounted, ref } from 'vue'
-import { Button as VanButton, Empty as VanEmpty, Loading as VanLoading } from 'vant'
+import { Button as VanButton, Empty as VanEmpty, Icon as VanIcon, Loading as VanLoading } from 'vant'
 import { fetchTemperatures } from '../services/api'
 
 const loading = ref(false)
@@ -172,9 +173,10 @@ h1 { margin-top: 4px; font-size: 30px; line-height: 1.1; letter-spacing: -0.04em
 
 .temperature-list { display: grid; gap: 14px; }
 
-.temp-card { padding: 18px; overflow: hidden; }
+.temp-card { padding: 18px; overflow: hidden; cursor: pointer; }
 .card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
 .card-head h3 { font-size: 19px; line-height: 1.25; }
+.arrow-icon { font-size: 14px; color: var(--wc-muted); margin-left: 4px; vertical-align: middle; }
 .code { margin-top: 4px; font-size: 12px; color: var(--wc-muted); }
 
 .temp-badge {
