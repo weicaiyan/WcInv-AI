@@ -304,7 +304,8 @@ onMounted(() => load(indexCode.value, tabs[0].days))
   padding: 12px 10px;
   border-radius: 50%;
   border: 3px solid;
-  display: inline-flex;
+  display: flex;
+  width: fit-content;
   flex-direction: column;
   align-items: center;
   justify-content: center;
