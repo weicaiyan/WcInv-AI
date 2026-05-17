@@ -11,6 +11,7 @@ export default defineConfig({
     }
   },
   server: {
+    allowedHosts: ['wcinv.top'],
     proxy: {
       '/api': {
         target: 'http://localhost:8080',
