@@ -32,7 +32,7 @@
       :key="item.index_code"
       class="glass-card temp-card"
       :style="{ '--temp-color': temperatureColor(item.temperature) }"
-      @click="$router.push(`/temperature-history?index_code=${item.index_code}`)"
+      @click="$router.push({ name: 'TemperatureHistory', query: { index_code: item.index_code } })"
     >
       <div class="card-head">
         <div>

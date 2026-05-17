@@ -69,7 +69,7 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import VChart from 'vue-echarts'
 import 'echarts'
@@ -93,6 +93,13 @@ const indexList = [
 ]
 
 const indexCode = ref(route.query.index_code || '000300')
+
+watch(() => route.query.index_code, (newVal) => {
+  if (newVal && newVal !== indexCode.value) {
+    indexCode.value = newVal
+    load(newVal, tabs[activeTab.value].days)
+  }
+})
 const loading = ref(true)
 const error = ref('')
 const history = ref(null)
