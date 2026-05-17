@@ -59,10 +59,12 @@
       <h2>温度说明</h2>
       <p>综合温度 = (PE温度 + PB温度) / 2，按月取最后交易日。</p>
       <div class="temp-legend">
-        <span class="dot" style="background:#4ade80"></span>0~30° 低估
-        <span class="dot" style="background:#fbbf24"></span>30~70° 正常
-        <span class="dot" style="background:#f97316"></span>70~85° 偏高
-        <span class="dot" style="background:#ef4444"></span>85~100° 高估
+        <span class="dot" style="background:#22c55e"></span>0~15° 重仓买入
+        <span class="dot" style="background:#4ade80"></span>15~30° 正常买入
+        <span class="dot" style="background:#fbbf24"></span>30~45° 轻仓买入
+        <span class="dot" style="background:#f97316"></span>45~60° 持有不动
+        <span class="dot" style="background:#ef4444"></span>60~75° 卖出半仓
+        <span class="dot" style="background:#dc2626"></span>75°+ 全部卖出
       </div>
     </section>
   </template>
@@ -149,10 +151,12 @@ const trendText = computed(() => {
 
 const meterGradient = computed(() => {
   const t = currentTemp.value
-  if (t <= 30) return '#4ade80'
-  if (t <= 70) return 'linear-gradient(90deg, #4ade80, #fbbf24)'
-  if (t <= 85) return 'linear-gradient(90deg, #fbbf24, #f97316)'
-  return 'linear-gradient(90deg, #f97316, #ef4444)'
+  if (t <= 15) return '#22c55e'
+  if (t <= 30) return 'linear-gradient(90deg, #22c55e, #4ade80)'
+  if (t <= 45) return 'linear-gradient(90deg, #4ade80, #fbbf24)'
+  if (t <= 60) return 'linear-gradient(90deg, #fbbf24, #f97316)'
+  if (t <= 75) return 'linear-gradient(90deg, #f97316, #ef4444)'
+  return 'linear-gradient(90deg, #ef4444, #dc2626)'
 })
 
 function tempColor(t) {
