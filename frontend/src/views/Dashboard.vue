@@ -70,19 +70,27 @@
     </article>
   </section>
 
-  <van-button class="refresh" block round plain hairline :loading="loading" @click="loadTemperatures">
+  <van-button class="refresh" block round plain hairline :loading="loading" @click="handleRefresh">
     刷新数据
   </van-button>
+
+  <LixingerCredModal
+    :visible="showCredModal"
+    @close="showCredModal = false"
+    @done="onCredDone"
+  />
 </template>
 
 <script setup>
 import { computed, onMounted, ref } from 'vue'
 import { Button as VanButton, Empty as VanEmpty, Icon as VanIcon, Loading as VanLoading } from 'vant'
-import { fetchTemperatures } from '../services/api'
+import { fetchTemperatures, refreshLixingerData } from '../services/api'
+import LixingerCredModal from './LixingerCredModal.vue'
 
 const loading = ref(false)
 const error = ref('')
 const temperatures = ref([])
+const showCredModal = ref(false)
 
 const firstDate = computed(() => {
   if (!temperatures.value.length) return ''
@@ -108,6 +116,38 @@ async function loadTemperatures() {
     temperatures.value = await fetchTemperatures()
   } catch (err) {
     error.value = err.message || '数据加载失败'
+  } finally {
+    loading.value = false
+  }
+}
+
+async function handleRefresh() {
+  loading.value = true
+  error.value = ''
+  try {
+    await refreshLixingerData()
+    temperatures.value = await fetchTemperatures()
+  } catch (err) {
+    if (err.body?.error?.code === 'LIXINGER_TOKEN_EXPIRED') {
+      showCredModal.value = true
+    } else {
+      error.value = err.message || '刷新失败'
+    }
+  } finally {
+    loading.value = false
+  }
+}
+
+async function onCredDone() {
+  showCredModal.value = false
+  error.value = ''
+  // 凭证更新成功，重新刷新
+  try {
+    loading.value = true
+    await refreshLixingerData()
+    temperatures.value = await fetchTemperatures()
+  } catch (err) {
+    error.value = err.message || '刷新失败'
   } finally {
     loading.value = false
   }

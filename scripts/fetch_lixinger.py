@@ -185,8 +185,8 @@ def upsert_mysql(rows: list[IndexValuation]) -> int:
     conn = pymysql.connect(
         host=os.getenv("DB_HOST", "localhost"),
         port=int(os.getenv("DB_PORT", "3306")),
-        user=os.getenv("DB_USER", "wcinv"),
-        password=os.getenv("DB_PASSWORD", ""),
+        user=os.getenv("DB_USER", "overduefree"),
+        password=os.getenv("DB_PASSWORD", "overduefree_pwd"),
         database=os.getenv("DB_NAME", "wcinv"),
         charset="utf8mb4",
         autocommit=False,
@@ -260,8 +260,12 @@ def main() -> int:
                 fetched = True
                 LOGGER.info("fetched data for %s (%d indices)", dt, len(items))
                 break
-            except RuntimeError:
-                LOGGER.info("no data for %s, trying next date", dt)
+            except RuntimeError as e:
+                msg = str(e)
+                if "token" in msg.lower() and ("验证" in msg or "权限" in msg or "过期" in msg):
+                    LOGGER.error("token权限验证错误 — token 已过期，请重新登录")
+                    return 1
+                LOGGER.info("no data for %s, trying next date: %s", dt, msg[:80])
                 continue
 
         if not fetched:

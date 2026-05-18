@@ -6,8 +6,8 @@ spring:
     name: wcinv
   datasource:
     url: ${DB_URL:jdbc:mysql://localhost:3306/wcinv?useUnicode=true&characterEncoding=UTF-8&connectionCollation=utf8mb4_unicode_ci&serverTimezone=Asia/Shanghai}
-    username: ${DB_USER:wcinv}
-    password: ${DB_PASSWORD:}
+    username: overduefree
+    password: overduefree_pwd
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       maximum-pool-size: 10

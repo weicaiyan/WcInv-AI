@@ -102,3 +102,14 @@ export function calculateBondBalance(payload) {
     body: JSON.stringify(payload)
   })
 }
+
+export function refreshLixingerData() {
+  return request('/api/v1/lixinger/refresh', { method: 'POST' })
+}
+
+export function loginLixinger(account, password) {
+  return request('/api/v1/lixinger/login', {
+    method: 'POST',
+    body: JSON.stringify({ account, password })
+  })
+}
