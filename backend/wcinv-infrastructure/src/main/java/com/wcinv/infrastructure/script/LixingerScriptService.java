@@ -48,6 +48,20 @@ public class LixingerScriptService {
     }
 
     /**
+     * 跑 fetch_bogle_indices.py，刷新博格公式行业指数数据。
+     */
+    public ScriptResult runFetchBogleIndices() {
+        return runPython("fetch_bogle_indices.py");
+    }
+
+    /**
+     * 跑 fetch_cheap_stocks.py，刷新便宜组合股票池数据。
+     */
+    public ScriptResult runFetchCheapStocks() {
+        return runPython("fetch_cheap_stocks.py");
+    }
+
+    /**
      * 调理杏仁登录脚本，获取新 token。
      */
     public ScriptResult runLogin(String account, String password) {
@@ -69,6 +83,11 @@ public class LixingerScriptService {
             ProcessBuilder pb = new ProcessBuilder(cmd);
             pb.directory(new File(SCRIPTS_DIR));
             pb.redirectErrorStream(false);
+            pb.environment().putIfAbsent("DB_HOST", "localhost");
+            pb.environment().putIfAbsent("DB_PORT", "3306");
+            pb.environment().putIfAbsent("DB_USER", "overduefree");
+            pb.environment().putIfAbsent("DB_PASSWORD", "overduefree_pwd");
+            pb.environment().putIfAbsent("DB_NAME", "wcinv");
 
             Process process = pb.start();
 

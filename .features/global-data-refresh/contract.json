@@ -1,0 +1,35 @@
+{
+  "feature": "global-data-refresh",
+  "endpoint": {
+    "method": "POST",
+    "path": "/api/v1/data/refresh",
+    "auth": true,
+    "request": null,
+    "response": {
+      "data": {
+        "message": "string",
+        "status": "SUCCESS | PARTIAL_SUCCESS | FAILED",
+        "items": [
+          {
+            "source": "string",
+            "name": "string",
+            "status": "SUCCESS | FAILED | SKIPPED",
+            "message": "string"
+          }
+        ]
+      },
+      "meta": null,
+      "error": null
+    },
+    "errors": [
+      {
+        "code": "LIXINGER_TOKEN_EXPIRED",
+        "message": "理杏仁 token 已过期，请重新登录"
+      },
+      {
+        "code": "DATA_REFRESH_FAILED",
+        "message": "全局数据刷新失败"
+      }
+    ]
+  }
+}

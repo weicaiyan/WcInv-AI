@@ -49,7 +49,7 @@
   </template>
 
   <van-button class="refresh" block round plain hairline :loading="loading" @click="load">
-    刷新数据
+    重新加载当前数据
   </van-button>
 </template>
 

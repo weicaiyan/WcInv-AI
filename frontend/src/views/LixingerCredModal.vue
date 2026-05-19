@@ -1,7 +1,10 @@
 <template>
-  <van-overlay :show="visible" @click="emit('close')">
-    <div class="modal-wrapper" @click.stop>
-      <div class="modal-card">
+  <van-overlay :show="visible" @click="handleClose">
+    <div class="modal-wrapper">
+      <div class="modal-card" @click.stop>
+        <button class="close-btn" type="button" aria-label="关闭弹窗" @click="handleClose">
+          <van-icon name="cross" />
+        </button>
         <h2>理杏仁凭证过期</h2>
         <p class="desc">请输入理杏仁账号和密码，系统将自动登录获取新 Token。</p>
 
@@ -23,6 +26,9 @@
           <van-button round block color="#f59e0b" :loading="submitting" @click="handleSubmit">
             登录并刷新
           </van-button>
+          <van-button round block plain class="cancel-btn" :disabled="submitting" @click="handleClose">
+            取消
+          </van-button>
         </div>
 
         <p v-if="error" class="error-msg">{{ error }}</p>
@@ -33,10 +39,10 @@
 
 <script setup>
 import { ref } from 'vue'
-import { Field as VanField, Button as VanButton, Overlay as VanOverlay } from 'vant'
+import { Field as VanField, Button as VanButton, Overlay as VanOverlay, Icon as VanIcon } from 'vant'
 import { loginLixinger } from '../services/api'
 
-const props = defineProps({
+defineProps({
   visible: Boolean
 })
 
@@ -46,6 +52,12 @@ const account = ref('')
 const password = ref('')
 const submitting = ref(false)
 const error = ref('')
+
+function handleClose() {
+  if (submitting.value) return
+  error.value = ''
+  emit('close')
+}
 
 async function handleSubmit() {
   if (!account.value.trim() || !password.value.trim()) {
@@ -75,11 +87,26 @@ async function handleSubmit() {
   min-height: 100vh; padding: 24px;
 }
 .modal-card {
+  position: relative;
   width: 100%; max-width: 340px;
   padding: 24px 20px 20px;
   border-radius: 20px;
   background: #161b22;
   border: 1px solid #30363d;
+}
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: 0;
+  border-radius: 999px;
+  color: var(--wc-muted);
+  background: rgba(148, 163, 184, 0.12);
 }
 .modal-card h2 {
   font-size: 18px; color: #f85149; margin-bottom: 8px;
@@ -88,7 +115,14 @@ async function handleSubmit() {
   font-size: 13px; color: #8b949e; margin-bottom: 16px; line-height: 1.5;
 }
 .actions {
+  display: grid;
+  gap: 10px;
   margin-top: 18px;
+}
+.cancel-btn {
+  color: var(--wc-muted);
+  border-color: rgba(148, 163, 184, 0.26);
+  background: transparent;
 }
 .error-msg {
   margin-top: 12px; font-size: 13px; color: #f85149; text-align: center;
